@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom';
-import './topbar.css'
+import './topbar.css';
+import { useContext } from 'react';
+import { Context } from '../../context/Context';
 
 export default function TopBar() {
-  const user = false;
+  const {user, dispatch} = useContext(Context);
+  const PF = "http://localhost:5000/images/";
+
+  const handleLogout = () => {
+    dispatch({type:"LOGOUT"})
+  }
   return (
     <div className='top'>
         <div className='topLeft'>
@@ -19,18 +26,20 @@ export default function TopBar() {
                 <li className='topListItem'><a className='link' href='/'>ABOUT</a></li>
                 <li className='topListItem'><a className='link' href='/'>CONTACT</a></li>
                 <li className='topListItem'><a className='link' href='/write'>WRITE</a></li>
-                <li className='topListItem'>
+                <li className='topListItem' onClick={handleLogout}>
                   {user && "LOGOUT"}
                 </li>
             </ul>
         </div>
         <div className='topRight'>
           {user ? 
-            <img 
-              className='topImg'
-              src='https://media.istockphoto.com/id/175009379/photo/giant-panda-bear-eating-bamboo.jpg?s=612x612&w=0&k=20&c=EYUlXKzjxe23OSXHO9jlugQhH_VWtF1-2NUaOSXsijA='
-              alt='Profile picture'
-            /> 
+            <a href="/settings">
+              <img 
+                className='topImg'
+                src={PF+user.profilePic}
+                alt='Profile picture'
+              /> 
+            </a>
             : 
             <ul className='topList'>
               <li className='topListItem'>
@@ -41,7 +50,7 @@ export default function TopBar() {
               </li>
             </ul>
           }
-            <i class="topSearchIcon fa-sharp fa-solid fa-magnifying-glass"></i>
+            <i className="topSearchIcon fa-sharp fa-solid fa-magnifying-glass"></i>
         </div>
     </div>
   )

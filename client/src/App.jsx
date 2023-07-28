@@ -10,10 +10,12 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import Post from "./components/post/Post";
+import { useContext } from "react";
+import { Context } from "./context/Context";
 
-const user = false;
-
-const router = createBrowserRouter([
+function App() {
+  const {user} = useContext(Context);
+  const router = createBrowserRouter([
     {
       path: "/",
       element: <Home />,
@@ -38,9 +40,7 @@ const router = createBrowserRouter([
       path: "post/:postId",
       element: <Single />,
     }
-])
-
-function App() {
+  ])
     return (
         <div>
             <TopBar />

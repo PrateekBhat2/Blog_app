@@ -1,23 +1,30 @@
 import './post.css'
+import {Link} from 'react-router-dom'
 
-export default function Post() {
+export default function Post({post}) {
+  const PF = "http://localhost:5000/images/"
   return (
     <div className='post'>
-        <img 
+        { post.photo &&
+          (<img 
             className='postImg'
-            src='https://images.pexels.com/photos/454880/pexels-photo-454880.jpeg?auto=compress&cs=tinysrgb&w=600'
+            src={PF + post.photo}
             alt=''
-        />
+          />)}
         <div className='postInfo'>
             <div className='postCats'>
-                <span className='postCat'>Music</span>
-                <span className='postCat'>Life</span>
+                {post.categories.map((c) => {
+                  <span className='postCat'>{c.name}</span>
+                })}
             </div>
-            <span className='postTitle'>Lorem ipsum dolor sit amet</span>
+            <Link to={`/post/${post._id}`} className='link'>
+              <span className='postTitle'>{post.title}</span>
+            </Link>
+            
             <hr />
-            <span className='postDate'>1 hour ago</span>
+            <span className='postDate'>{new Date(post.createdAt).toDateString()}</span>
         </div>
-        <p className='postDesc'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quia sint ipsa doloremque nisi facere assumenda eaque dolores ea aliquid aliquam cupiditate officia, consectetur voluptates tenetur perferendis veniam quod consequatur?Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quia sint ipsa doloremque nisi facere assumenda eaque dolores ea aliquid aliquam cupiditate officia, consectetur voluptates tenetur perferendis veniam quod consequatur?Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quia sint ipsa doloremque nisi facere assumenda eaque dolores ea aliquid aliquam cupiditate officia, consectetur voluptates tenetur perferendis veniam quod consequatur?</p>
+        <p className='postDesc'>{post.desc}</p>
     </div>
   )
 }
