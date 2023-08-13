@@ -6,7 +6,7 @@ import axios from "axios";
 import './home.css';
 import { useLocation } from 'react-router-dom';
 
-axios.defaults.baseURL = `http://localhost:5000/api`;
+axios.defaults.baseURL = `/api`;
 
 export default function Home() {
   const [posts , setPosts] = useState([]);
